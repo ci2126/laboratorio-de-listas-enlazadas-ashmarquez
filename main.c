@@ -1,27 +1,37 @@
 /* Ashly Marquez 15-10870
-Ejercicio Nº1: Mezclas de listas
-*/
+Ejercicio Nº2 Insercion ordenada */
 #include <stdio.h>
 #include <stdlib.h>
-void merge(Lista *L, Lista *M){
-    Lista K=newlist()
-    Nodo *p=NULL;
-    while (*L!=NULL && *M!=NULL){
-        if((*L->val) <= (*M->val)){
-            inserta(*L->val, &p); *L=*L->sig;
+
+void insertOrd(int x, Lista *L){
+    Nodo *p=malloc(sizeof(Nodo));
+    Nodo *q=malloc(sizeof(Nodo));
+    Nodo *r=malloc(sizeof(Nodo));
+    p->val=x;
+    if(*L==NULL){
+        p->sig=NULL;
+        *L=p;
+    }
+    else{
+        q=*L;
+        while (q->sig != NULL && x>q->val){
+            r=q;
+            q=q->sig;
+        }
+    if (x<=q->val){
+        if(q==*L){
+            *L=p;
+            p->sig=q;
         }
         else {
-          inserta(*M->val, &p); *M=*M->sig;
+            r->sig=p;
+            p->sig=q;
         }
     }
-
-    while(*L!=NULL){
-        inserta(*L->val, &p); *L=*L->sig;
+    else {
+        p->sig=q->sig;
+        q->sig=*p;
     }
-
-    while(*M!=NULL){
-        inserta(*M->val, &p); *M=*M->sig;
     }
-    *K=p;
 }
 
